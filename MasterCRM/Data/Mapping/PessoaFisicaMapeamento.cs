@@ -8,6 +8,8 @@ public class PessoaFisicaMapeamento : IEntityTypeConfiguration<PessoaFisica>
 {
     public void Configure(EntityTypeBuilder<PessoaFisica> builder)
     {
+        builder.ToTable("PessoaFisica");
+
         builder.HasKey(p =>  p.Id);
 
         builder.Property(p => p.Id)
@@ -21,15 +23,15 @@ public class PessoaFisicaMapeamento : IEntityTypeConfiguration<PessoaFisica>
 
         builder.Property(p => p.DataCriacao)
             .IsRequired(true)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(p => p.DataAlteracao)
             .IsRequired(false)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(p => p.NomeCompleto)
             .IsRequired(false)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(150);
 
         builder.Property(p => p.DataNascimento)
@@ -47,7 +49,7 @@ public class PessoaFisicaMapeamento : IEntityTypeConfiguration<PessoaFisica>
 
         builder.Property(p => p.Email)
             .IsRequired(false)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(160);
 
         builder.Property(p => p.Telefone)
@@ -57,6 +59,6 @@ public class PessoaFisicaMapeamento : IEntityTypeConfiguration<PessoaFisica>
 
         builder.Property(p => p.EnderecoId)
             .IsRequired(true)
-            .HasColumnType("NUMBER");
+            .HasColumnType("INT");
     }
 }

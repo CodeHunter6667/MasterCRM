@@ -8,6 +8,8 @@ public class PessoaJuridicaMapeamento : IEntityTypeConfiguration<PessoaJuridica>
 {
     public void Configure(EntityTypeBuilder<PessoaJuridica> builder)
     {
+        builder.ToTable("PessoaJuridica");
+
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id)
@@ -21,20 +23,20 @@ public class PessoaJuridicaMapeamento : IEntityTypeConfiguration<PessoaJuridica>
 
         builder.Property(p => p.DataCriacao)
             .IsRequired(true)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(p => p.DataAlteracao)
             .IsRequired(false)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(p => p.RazaoSocial)
             .IsRequired(true)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(255);
 
         builder.Property(p => p.NomeFantasia)
             .IsRequired(true)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(300);
 
         builder.Property(p => p.IncricaoEstadual)
@@ -44,11 +46,11 @@ public class PessoaJuridicaMapeamento : IEntityTypeConfiguration<PessoaJuridica>
 
         builder.Property(p => p.Cnpj)
             .IsRequired(true)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(15);
 
         builder.Property(p => p.EhSimplesNacional)
             .IsRequired(true)
-            .HasColumnType("BIT");
+            .HasColumnType("BOOLEAN");
     }
 }

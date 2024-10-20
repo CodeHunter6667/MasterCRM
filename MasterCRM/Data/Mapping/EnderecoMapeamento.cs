@@ -21,15 +21,15 @@ public class EnderecoMapeamento : IEntityTypeConfiguration<Endereco>
 
         builder.Property(p => p.DataCriacao)
             .IsRequired(true)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(p => p.DataAlteracao)
             .IsRequired(false)
-            .HasColumnType("DATETIME");
+            .HasColumnType("TIMESTAMP WITHOUT TIME ZONE");
 
         builder.Property(e => e.Rua)
             .IsRequired(true)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(255);
 
         builder.Property(e => e.Numero)
@@ -39,7 +39,7 @@ public class EnderecoMapeamento : IEntityTypeConfiguration<Endereco>
 
         builder.Property(p => p.Cidade)
             .IsRequired(true)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("VARCHAR")
             .HasMaxLength(100);
 
         builder.Property(e => e.UF)
