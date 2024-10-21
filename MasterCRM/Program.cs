@@ -1,22 +1,19 @@
-using MasterCRM;
-using MasterCRM.Data;
-using Microsoft.EntityFrameworkCore;
+using MasterCRM.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Configuration.ConnectionString = builder.Configuration.GetConnectionString("SqlConnection") ?? string.Empty;
-builder.Services.AddDbContext<AppDBContext>(
-    options => options.UseNpgsql(Configuration.ConnectionString)
-);
+builder.AddConfigurations();
+builder.AddDataContexts();
+builder.AddDocumentation();
+builder.AddServices();
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x => { x.CustomSchemaIds(n => n.FullName); });
+
 var app = builder.Build();
+
+app.MapControllers();
 
 app.UseSwagger();
 
 app.UseSwaggerUI();
-
-app.MapControllers();
 
 app.Run();
