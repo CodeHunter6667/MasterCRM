@@ -1,11 +1,13 @@
 using System.Linq.Expressions;
 using MasterCRM.Data;
+using MasterCRM.Domain.Base;
+using MasterCRM.Exceptions;
 using MasterCRM.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterCRM.Services;
 
-public class ServicoBase<T> : IServicoBase<T> where T : class
+public class ServicoBase<T> : IServicoBase<T> where T : EntidadeBase
 {
     private AppDBContext _context;
 
@@ -16,24 +18,53 @@ public class ServicoBase<T> : IServicoBase<T> where T : class
 
     public void Atualizar(T entidade)
     {
-        throw new NotImplementedException();
+        _context.Set<T>().Update(entidade);
+        _context.SaveChanges();
     }
 
     public void Deletar(long id)
     {
-        throw new NotImplementedException();
+        var entidade = _context.Set<T>().AsNoTracking().FirstOrDefault(x => x.Id == id);
+        if (entidade == null)
+            throw new NotFoundException("Não encontrado nenhum registro com esses dados");
+        
+        _context.Set<T>().Remove(entidade);
+        _context.SaveChanges();
     }
 
     public void InserirOuAtualizar(T entidade)
     {
-        throw new NotImplementedException();
+        if (entidade == null)
+            throw new ArgumentNullException("Dados inválidos");
+        
+        if(entidade.EstaSalva)
+        {
+            _context.Set<T>().Add(entidade);
+            _context.SaveChanges();
+        }
+        else
+        {
+            Atualizar(entidade);
+        }
     }
 
     public T? Obter(Expression<Func<T, bool>> predicado)
     {
-        return _context.Set<T>().AsNoTracking().FirstOrDefault(predicado);
+        var entidade = _context.Set<T>().AsNoTracking().FirstOrDefault(predicado);
+        if (entidade == null)
+            throw new NotFoundException("Não encontrado nenhum registro com esses dados");
+
+        return entidade;
     }
 
+    public T? Obter(long id)
+    {
+        var entidade = _context.Set<T>().AsNoTracking().FirstOrDefault(x => x.Id == id);
+        if (entidade == null)
+            throw new NotFoundException("Não encontrado nenhum registro com esses dados");
+
+        return entidade;
+    }
 
     public IEnumerable<T> Todos()
     {
