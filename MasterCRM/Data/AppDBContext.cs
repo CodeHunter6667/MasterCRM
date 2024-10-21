@@ -1,5 +1,5 @@
 ﻿using MasterCRM.Domain.Contato;
-using MasterCRM.Domain.Models;
+using MasterCRM.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

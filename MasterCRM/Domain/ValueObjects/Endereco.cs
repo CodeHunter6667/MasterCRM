@@ -1,6 +1,6 @@
 ﻿using MasterCRM.Domain.Base;
 
-namespace MasterCRM.Domain.Models;
+namespace MasterCRM.Domain.ValueObjects;
 
 public class Endereco : EntidadeBase
 {
