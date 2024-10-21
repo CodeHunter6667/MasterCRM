@@ -1,5 +1,5 @@
 ﻿using MasterCRM.Domain.Base;
-using MasterCRM.Domain.Models;
+using MasterCRM.Domain.ValueObjects;
 
 namespace MasterCRM.Domain.Contato;
 
