@@ -19,4 +19,5 @@ public class PessoaFisica : Pessoa
         } }
     public DateTime? DataNascimento { get; set; }
     public EGenero Genero { get; set; }
+    public long PessoaId { get; set; }
 }

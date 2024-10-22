@@ -7,5 +7,5 @@ public class PessoaJuridica : Pessoa
     public string Cnpj { get; set; } = string.Empty;
     public string? IncricaoEstadual { get; set; } = string.Empty;
     public bool EhSimplesNacional { get; set; }
-
+    public long PessoaId { get; set; }
 }
